@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Safety Inspection App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        #app {
+            width: 300px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .screen {
+            display: none;
+        }
+        input, button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        h1 {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div id="login-screen" class="screen">
+            <h1>Login</h1>
+            <input type="text" id="username" placeholder="Username">
+            <input type="password" id="password" placeholder="Password">
+            <button onclick="login()">Login</button>
+        </div>
+
+        <div id="dashboard-screen" class="screen">
+            <h1>Dashboard</h1>
+            <button onclick="showScreen('task-screen')">Start Inspection</button>
+            <button onclick="showScreen('leaderboard-screen')">View Leaderboard</button>
+            <button onclick="showScreen('training-screen')">Training</button>
+        </div>
+
+        <div id="task-screen" class="screen">
+            <h1>Inspection Task</h1>
+            <button onclick="completeTask()">Complete Task</button>
+            <p id="points">Points Earned: 0</p>
+            <button onclick="showScreen('dashboard-screen')">Go to Dashboard</button>
+        </div>
+
+        <div id="leaderboard-screen" class="screen">
+            <h1>Leaderboard</h1>
+            <ul id="leaderboard">
+                <li>Inspector A: 100 points</li>
+                <li>Inspector B: 90 points</li>
+                <li>Inspector C: 80 points</li>
+            </ul>
+            <button onclick="showScreen('dashboard-screen')">Go to Dashboard</button>
+        </div>
+
+        <div id="training-screen" class="screen">
+            <h1>Training Module</h1>
+            <p>Learn how to perform inspections effectively and earn points.</p>
+            <button onclick="showScreen('dashboard-screen')">Go to Dashboard</button>
+        </div>
+    </div>
+
+    <script>
+        let points = 0;
+
+        const login = () => {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            // Simple login check
+            if (username && password) {
+                showScreen('dashboard-screen');
+            } else {
+                alert('Please enter username and password');
+            }
+        };
+
+        const showScreen = (screenId) => {
+            const screens = document.querySelectorAll('.screen');
+            screens.forEach(screen => {
+                screen.style.display = 'none';
+            });
+            document.getElementById(screenId).style.display = 'block';
+        };
+
+        const completeTask = () => {
+            points += 10;
+            document.getElementById('points').innerText = `Points Earned: ${points}`;
+        };
+
+        // Initial screen setup
+        showScreen('login-screen');
+    </script>
+</body>
+</html>
